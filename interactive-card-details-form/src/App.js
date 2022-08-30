@@ -1,12 +1,12 @@
 import { GlobalStyles } from "./helpers/Global.styled";
-import { Container } from "./components";
-import { Background } from "./components";
+import { Container, Background, RightSide } from './components';
 
 function App() {
   return (
     <Container>
       <GlobalStyles></GlobalStyles>
       <Background />
+      <RightSide />
     </Container>
   );
 }

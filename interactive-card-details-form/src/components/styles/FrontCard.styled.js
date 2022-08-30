@@ -6,11 +6,16 @@ const Wrapper = styled.div`
   width: fit-content;
   height: fit-content;
   position: absolute;
-  top: 25%;
+  top: 20%;
   right: -20%;
   border-radius: 10px;
   color: ${colors.white};
   z-index: 2;
+  transition: transform ease-in-out 0.2s;
+
+  &:hover {
+    transform: scale(1.1) rotate(-5deg);
+  }
 `;
 
 const Flex = styled.div`
@@ -30,7 +35,7 @@ const CardLogoStyles = styled.svg`
   position: absolute;
   z-index: 3;
   left: 8%;
-  top: 10%
+  top: 10%;
 `;
 
 const CardImage = styled.img`
@@ -69,7 +74,7 @@ export const FrontCard = (props) => {
         <p>FELICIA LEIRE</p>
         <p>09/26</p>
       </Flex>
-      <CardImage src={frontCardImage} />
+      <CardImage src={frontCardImage} alt="Preview of the frontcard"/>
     </Wrapper>
   );
 };

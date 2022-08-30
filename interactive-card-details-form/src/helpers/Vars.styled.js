@@ -9,7 +9,8 @@ export const colors = {
     white: 'hsl(0, 0%, 100%)',
     lightViolet: 'hsl(270, 3%, 87%)',
     darkViolet: 'hsl(279, 6%, 55%)',
-    veryDarkViolet: 'hsl(278, 68%, 11%)'
+    veryDarkViolet: 'hsl(278, 68%, 11%)',
+    gris: 'hsl(0, 0%, 75%)'
 }
 
 export const fonts = {
