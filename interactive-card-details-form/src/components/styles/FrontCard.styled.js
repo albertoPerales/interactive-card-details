@@ -1,6 +1,10 @@
+import { useContext, useState, useEffect } from "react";
+import { ReactDOM } from "react";
+import FormContext from "../../context/FormContext";
 import styled from "styled-components";
 import frontCardImage from "../../img/bg-card-front.png";
 import { colors } from "../../helpers/Vars.styled";
+import { useRef } from "react";
 
 const Wrapper = styled.div`
   width: fit-content;
@@ -12,7 +16,9 @@ const Wrapper = styled.div`
   color: ${colors.white};
   z-index: 2;
   transition: transform ease-in-out 0.2s;
-
+  transform-style: preserve-3d;
+  prespective: 1000px;
+  // transition: transform 0.5s ease-in-out;
   &:hover {
     transform: scale(1.1) rotate(-5deg);
   }
@@ -36,6 +42,7 @@ const CardLogoStyles = styled.svg`
   z-index: 3;
   left: 8%;
   top: 10%;
+  transform: translateZ(20px);
 `;
 
 const CardImage = styled.img`
@@ -50,11 +57,14 @@ const IbanNumber = styled.h2`
   letter-spacing: 10px;
   font-weight: 500;
   font-size: 1.7em;
+  transform: translateZ(40px);
 `;
 
-export const FrontCard = (props) => {
+export const FrontCard = () => {
+  const { cardName, cardNumber, mm, yy } = useContext(FormContext);
+
   return (
-    <Wrapper>
+    <Wrapper >
       <CardLogoStyles>
         <svg
           width="84"
@@ -69,12 +79,18 @@ export const FrontCard = (props) => {
           />
         </svg>
       </CardLogoStyles>
-      <IbanNumber>9591 6489 1011</IbanNumber>
+      <IbanNumber>{cardNumber}</IbanNumber>
       <Flex>
-        <p>FELICIA LEIRE</p>
-        <p>09/26</p>
+        <p>{cardName}</p>
+        <p>
+          {mm}/{yy}
+        </p>
       </Flex>
-      <CardImage src={frontCardImage} alt="Preview of the frontcard"/>
+      <CardImage
+        id="imageCard"
+        src={frontCardImage}
+        alt="Preview of the frontcard"
+      />
     </Wrapper>
   );
 };

@@ -1,6 +1,8 @@
 import styled from "styled-components";
+import { useContext } from "react";
 import backCardImage from "../../img/bg-card-back.png";
 import { colors } from "../../helpers/Vars.styled";
+import FormContext from "../../context/FormContext";
 
 const Wrapper = styled.div`
   width: fit-content;
@@ -32,9 +34,11 @@ const CarCvv = styled.p`
 `;
 
 export const BackCard = (props) => {
+  const { cvc } = useContext(FormContext);
+
   return (
     <Wrapper>
-        <CarCvv>000</CarCvv>
+        <CarCvv>{cvc}</CarCvv>
       <CardImage src={backCardImage} alt="Preview of the back card" />
     </Wrapper>
   );

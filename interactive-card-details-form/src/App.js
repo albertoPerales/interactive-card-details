@@ -1,13 +1,16 @@
 import { GlobalStyles } from "./helpers/Global.styled";
-import { Container, Background, RightSide } from './components';
+import { Container, Background, RightSide } from "./components";
+import { FormProvider } from "./context/FormContext";
 
 function App() {
   return (
-    <Container>
-      <GlobalStyles></GlobalStyles>
-      <Background />
-      <RightSide />
-    </Container>
+    <FormProvider>
+      <Container>
+        <GlobalStyles></GlobalStyles>
+        <Background />
+        <RightSide />
+      </Container>
+    </FormProvider>
   );
 }
 

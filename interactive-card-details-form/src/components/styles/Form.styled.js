@@ -1,6 +1,10 @@
+import { useContext, useState } from "react";
 import styled from "styled-components";
-import { colors, fonts } from "../../helpers/Vars.styled";
+
+import FormContext from "../../context/FormContext";
+import { colors } from "../../helpers/Vars.styled";
 import { Button } from "./Button.styled";
+import { Submit } from "./Submit.styled";
 
 const LabelStyle = styled.p`
   letter-spacing: 2px;
@@ -14,7 +18,7 @@ const Field = styled.div`
 `;
 
 const InputStyle = styled.input`
-margin-top: 1em;
+  margin-top: 1em;
   width: 100%;
   font-size: 1.2em;
   border: 1px solid ${colors.gris};
@@ -29,10 +33,15 @@ margin-top: 1em;
 `;
 
 const FormStyle = styled.form`
-  width: 40%;
+  width: 100%;
   height: fit-content;
 `;
-
+const Center = styled.div`
+  width: 35%;
+  height: fit-content;
+  display: flex;
+  justify-content: center;
+`;
 const Flex = styled.div`
   display: flex;
   flex-direction: row;
@@ -40,48 +49,109 @@ const Flex = styled.div`
 `;
 
 export const Form = () => {
+  const {
+    setCardName,
+    setCardNumber,
+    setCvc,
+    setMM,
+    setYY,
+    isSubmitted,
+    setIsSubmitted,
+  } = useContext(FormContext);
 
+  /*Handlers*/
+  const handleCardName = (e) => {
+    setCardName(e.target.value);
+  };
+
+  const handleCardNumber = (e) => {
+    setCardNumber(e.target.value);
+  };
+
+  const handleCardCVC = (e) => {
+    setCvc(e.target.value);
+  };
+
+  const handleCardMM = (e) => {
+    setMM(e.target.value);
+  };
+
+  const handleCardYY = (e) => {
+    setYY(e.target.value);
+  };
+
+  /*Validate form*/
+  const validateForm = (e) => {
+    e.preventDefault();
+    setIsSubmitted(true);
+  }
   
-
-
-
-
-
-
   return (
-    <FormStyle>
-      <Field>
-        <LabelStyle htmlFor="cardName">CARDHOLDER NAME</LabelStyle>
-        <InputStyle
-          name="cardName"
-          placeholder="e.g Jane Appleseed"
-        ></InputStyle>
-      </Field>
+    <Center>
+      {isSubmitted ? (
+        <Submit />
+      ) : (
+        <FormStyle onSubmit={validateForm}>
+          <Field>
+            <LabelStyle htmlFor="cardName">CARD NAME</LabelStyle>
+            <InputStyle
+              name="cardName"
+              type="text"
+              maxlength="10"
+              placeholder="e.g Jane Appleseed"
+            ></InputStyle>
+            
+          </Field>
 
-      <Field>
-        <LabelStyle htmlFor="cardNumber">CARD NUMBER</LabelStyle>
-        <InputStyle
-          name="cardNumber"
-          placeholder="e.g 1234 5678 9123 0000"
-        ></InputStyle>
-      </Field>
+          <Field>
+            <LabelStyle htmlFor="cardNumber">CARD NUMBER</LabelStyle>
+            <InputStyle
+              name="cardNumber"
+              type="text"
+              maxlength="16"
+              placeholder="e.g 1234 5678 9123 0000"
+              onChange={handleCardNumber}
+              // required
+            ></InputStyle>
+          </Field>
 
-      <Flex>
-        <Field>
-          <LabelStyle htmlFor="expDateMM">EXP. DATE(MM/YY)</LabelStyle>
           <Flex>
-            <InputStyle name="expDateMM" placeholder="MM"></InputStyle>
-            <InputStyle name="expDateYY" placeholder="YY"></InputStyle>
+            <Field>
+              <LabelStyle htmlFor="expDateMM">EXP. DATE(MM/YY)</LabelStyle>
+              <Flex>
+                <InputStyle
+                  type="text"
+                  maxlength="2"
+                  name="expDateMM"
+                  placeholder="MM"
+                  onChange={handleCardMM}
+                  // required
+                ></InputStyle>
+                <InputStyle
+                  type="text"
+                  maxlength="2"
+                  name="expDateYY"
+                  placeholder="YY"
+                  onChange={handleCardYY}
+                  // required
+                ></InputStyle>
+              </Flex>
+            </Field>
+            <Field>
+              <LabelStyle htmlFor="cvc">CVC</LabelStyle>
+              <InputStyle
+                maxlength="4"
+                name="cvc"
+                placeholder="e.g. 123"
+                onChange={handleCardCVC}
+                // required
+              ></InputStyle>
+            </Field>
           </Flex>
-        </Field>
-        <Field>
-          <LabelStyle htmlFor="cvc">CVC</LabelStyle>
-          <InputStyle name="cvc" placeholder="e.g. 123"></InputStyle>
-        </Field>
-      </Flex>
 
-        <Button>Confirm</Button>
-
-    </FormStyle>
+          <Button>Confirm</Button>
+        </FormStyle>
+      )}
+    </Center>
   );
 };
